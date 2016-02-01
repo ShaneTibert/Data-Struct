@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="fbd3d2d0-1576-4893-a57f-3d02333d894c" name="UMLClassDiagram1" linkedPackageId="805e9ae6-516e-4ebf-a1fc-75b22ea4ca73" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="a3e6fc1d-113e-4a59-b2e1-b3fe5936e87f">
+      <profileInstance Id="b508b171-ad2d-4a3c-8723-560854a3e104" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="213cf1cb-d189-4782-89d1-c9d51fc80a33">
+      <profileInstance Id="f1609501-5693-476e-9f59-f623d99a1010" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="fe25d333-cf53-4899-a3ad-f39f2f0f0aad" name="Class1" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fa211ec3-d5b2-4aa7-a9e4-ef70e0698014" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="805e9ae6-516e-4ebf-a1fc-75b22ea4ca73" name="CSharpAssinment1">
+    <elementDefinition Id="6a53f8db-04f7-4351-999e-6e99d938d445" />
+  </package>
+</logicalClassDesignerModel>
