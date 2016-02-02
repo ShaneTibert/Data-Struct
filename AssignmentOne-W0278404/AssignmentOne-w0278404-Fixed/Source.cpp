@@ -98,7 +98,7 @@ void commands(char arg, int value)
 	}
 	else if (toupper(arg) == 'G'){
 		if (value > 0 && value < 8){
-			currentlySelected = value - 1;
+			currentlySelected = value;
 		}
 		else cout << "Invalueid Value to goto" << endl;
 	}
@@ -147,17 +147,17 @@ void mainDisplay()
 	// chunks through a for loop printing Rs on odd interations and Ls on evens
 	for (int i = 0; i < 7; i++) {
 		if (i & 1) {
-			if (currentlySelected == i) {
-				cout << ">" << "R" << value[i] << "<";
-			}
-			else cout << "R" << value[i];
-			
-		}
-		else {
-			if (currentlySelected == i) {
+			if (currentlySelected == i+1) {
 				cout << ">" << "L" << value[i] << "<";
 			}
 			else cout << "L" << value[i];
+			
+		}
+		else {
+			if (currentlySelected == i +1) {
+				cout << ">" << "R" << value[i] << "<";
+			}
+			else cout << "R" << value[i];
 		}
 	}
 	cout << (char)179 << "                                        " << (char)179 << endl;
