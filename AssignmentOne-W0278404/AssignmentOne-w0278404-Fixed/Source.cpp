@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
-#include "Chain.h"
+#include <fstream>
+#include "List.h"
 
 using namespace std;
 
@@ -22,11 +23,12 @@ int main(int argc, char** argv) {
 	if (argc > 1) {
 		filename[0] = argv[0];
 	}
-
+	char** filename = argv;
 	sel = 1;
 
-	char input[16];
-	char cnd;
+	char input[4];
+	char cmd;
+	char** filename = argv;
 
 	int val = 0;
 
@@ -36,6 +38,52 @@ int main(int argc, char** argv) {
 		val = 0;
 
 		cout << ">>";
+
+		cin.getline(input, 16);
+
+		cmd = input[0];
+
+		if (input[1] == ' ') {
+			if (isdigit(input[2])) {
+
+				val = 0;
+
+				if (input[2] == '1') {
+					val += 10;
+				}
+				if (input[2] == '2') {
+					val += 20;
+				}
+				if (input[2] == '3') {
+					val += 30;
+				}
+				if (input[2] == '4') {
+					val += 40;
+				}
+				if (input[2] == '5') {
+					val += 50;
+				}
+				if (input[2] == '6') {
+					val += 60;
+				}
+				if (input[2] == '7') {
+					val += 70;
+				}
+				if (input[2] == '8') {
+					val += 80;
+				}
+				if (input[2] == '9') {
+					val += 90;
+				}
+				if (isdigit(input[3])) {
+					val += input[3] - 48;
+				}
+				else {
+					val = val / 10;
+				}
+			}
+		}
+		commands(cmd, val);
 	}
 }
 
@@ -49,7 +97,7 @@ void mainDisplay()
 
 	for (int i = 0; i < 7; i++)
 	{
-		val[i] = combo.RetrivePosition(i + 1);
+		val[i] = combo.RetrievePosition(i + 1);
 	}
 
 	cout << (char)218 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)191 << endl;
@@ -88,6 +136,32 @@ void helpScreen()
 
 	_getch();
 }
-void saveToFile(){
+void saveToFile(string filename){
 
+
+		ofstream dataForFile;
+	try {
+
+		dataForFile.open(filename);
+		dataForFile << "The Saved Combo is: ";
+		for (int i = 0; i < 7; i++) {
+			if (i & 1) {
+
+				cout << "R" << val[i];
+
+			}
+			else {
+				if (sel == i) {
+					cout << ">" << "L" << val[i] << "<";
+				}
+				else cout << "L" << val[i];
+			}
+		}
+		cout << "File Succesfully Saved" << endl;
+	}
+	catch (exception e) {
+		cout << e.what();
+	}
+	dataForFile.close();
+	
 }

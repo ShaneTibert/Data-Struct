@@ -12,7 +12,7 @@ int List::RetrievePosition(int nodenum) {
 	for (int i = 0; i < nodenum; i++) {
 		if (i == num) {
 			val = current->data;
-			//Yo mamma jamma??
+			break;
 		}
 		else {
 			if (current->next == nullptr) {
@@ -58,8 +58,37 @@ void List::DeleteAll()
 
 void List::InsertAfterValue(int value, int num)
 {
+	current = first
+
+		for (int i = 0; i <= value++; i++) {
+			if (i == value++) {
+				current->data = num;
+			}
+			else {
+				grow();
+				current = current = current->next;
+			}
+		}
 }
 
 void List::InsertAtPosition(int nodenum, int num)
 {
+	current = first;
+
+	nodenum = nodenum - 1;
+
+	for (int i = 0; i <= nodenum; i++) {
+		
+		if (i == nodenum) {
+			current->data = num
+				break;
+		}
+		if (current->next == nullptr) {
+			grow();
+			current = current->next;
+		}
+		else {
+			current = current->next;
+		}
+	}
 }
