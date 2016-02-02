@@ -1,5 +1,9 @@
 #include "Node.h"
 
+#ifndef LIST_H
+#define LIST_H
+
+
 #pragma once
 class List
 {
@@ -21,3 +25,6 @@ public:
 	int RetrieveValue(int value);
 	int RetrievePosition(int nodenum);
 };
+
+
+#endif /* LIST_H */

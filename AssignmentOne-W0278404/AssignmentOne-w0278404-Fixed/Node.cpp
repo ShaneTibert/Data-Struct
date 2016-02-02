@@ -1,6 +1,6 @@
 #include "Node.h"
 
-node::~node()
+Node::~Node()
 {
 	next = nullptr;
 	delete(next);
