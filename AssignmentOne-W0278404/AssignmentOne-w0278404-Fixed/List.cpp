@@ -7,6 +7,7 @@ int List::RetrieveValue(int valueue)
 {
 	return 0;
 }
+// gets the value at a position
 int List::RetrievePosition(int nodenum) {
 
 	int num = nodenum - 1;
@@ -40,31 +41,33 @@ bool List::empty() const
 	return false;
 }
 
+// adds data to the current link
 void List::Add(int num) {
 	current->data = num;
 }
 
-void List::DeleteValue(int valueue)
+// deletes the data from the current link 
+void List::DeleteValue(int value)
 {
 	current->data = 0;
 }
 
+// deletes the data from the specified link 
 void List::DeletePosition(int nodenum)
 {
-	int num = nodenum - 1;
-
 	current = first;
 	for (int i = 0; i < nodenum; i++) {
-		if (i == num) {
+		if (i == nodenum -1) {
 			current->data = 0;
 			break;
 		}
 		else {
-			break;
+			current = current->next;
 		}
 	}
 }
 
+//Deletes all data (sets it to zero)
 void List::DeleteAll()
 {
 	Node* next;
@@ -78,22 +81,23 @@ void List::DeleteAll()
 	}
 	current->data = 0;
 }
-
-void List::InsertAfterValue(int valueue, int num)
+//Inserts a new data value after the spcified link
+void List::InsertAfterValue(int value, int num)
 {
 	current = first;
 
-		for (int i = 0; i <= valueue++; i++) {
-			if (i == valueue++) {
+		for (int i = 0; i <= value++; i++) {
+			if (i == value++) {
 				current->data = num;
 			}
 			else {
 				current->next = new Node();
-				current = current = current->next;
+				current = current->next;
 			}
 		}
 }
 
+// inserts data at a node number
 void List::InsertAtPosition(int nodenum, int num)
 {
 	current = first;
