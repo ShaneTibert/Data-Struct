@@ -5,90 +5,127 @@
 
 using namespace std;
 
-int sel = 6;
-int val[7];
+int currentlySelected = 6;
+int value[7];
 
 char** filename;
 
-bool saveflag = false;
+bool saveBool = false;
 bool run = true;
 
 List combo;
 
-void display();
-void commands(char arg, int val);
-void help();
+void mainDisplay();
+void commands(char arg, int value);
+void helpScreen();
 
 int main(int argc, char** argv) {
 	if (argc > 1) {
 		filename[0] = argv[0];
 	}
 	char** filename = argv;
-	sel = 1;
+	currentlySelected = 1;
 
 	char input[4];
-	char cmd;
-	char** filename = argv;
+	char inCommand;
 
-	int val = 0;
+	int value = 0;
 
-	display();
+	mainDisplay();
 
 	while (run) {
-		val = 0;
+		value = 0;
 
 		cout << ">>";
 
 		cin.getline(input, 16);
 
-		cmd = input[0];
+		inCommand = input[0];
 
 		if (input[1] == ' ') {
 			if (isdigit(input[2])) {
 
-				val = 0;
+				value = 0;
 
 				if (input[2] == '1') {
-					val += 10;
+					value += 10;
 				}
 				if (input[2] == '2') {
-					val += 20;
+					value += 20;
 				}
 				if (input[2] == '3') {
-					val += 30;
+					value += 30;
 				}
 				if (input[2] == '4') {
-					val += 40;
+					value += 40;
 				}
 				if (input[2] == '5') {
-					val += 50;
+					value += 50;
 				}
 				if (input[2] == '6') {
-					val += 60;
+					value += 60;
 				}
 				if (input[2] == '7') {
-					val += 70;
+					value += 70;
 				}
 				if (input[2] == '8') {
-					val += 80;
+					value += 80;
 				}
 				if (input[2] == '9') {
-					val += 90;
+					value += 90;
 				}
 				if (isdigit(input[3])) {
-					val += input[3] - 48;
+					value += input[3] - 48;
 				}
 				else {
-					val = val / 10;
+					value = value / 10;
 				}
 			}
 		}
-		commands(cmd, val);
+		commands(inCommand, value);
 	}
 }
 
-void commands(char arg, int val)
+void commands(char arg, int value)
 {
+	if (toupper(arg) == 'D'){
+		combo.DeletePosition(currentlySelected - 1);
+		mainDisplay();
+	}
+	else if (toupper(arg) == 'R'){
+		combo.DeleteAll();
+		mainDisplay();
+	}
+	else if (toupper(arg) == 'G'){
+		if (value > 0 && value < 8){
+			currentlySelected = value - 1;
+		}
+		else cout << "Invalueid Value to goto" << endl;
+	}
+	else if (toupper(arg) == 'E'){
+		run = false;
+		saveBool = true;
+	}
+	else if (toupper(arg) == 'S'){
+		if (value > -1) {
+			if (value < 50){
+				combo.InsertAtPosition(currentlySelected, value);
+				mainDisplay();
+			}
+		}
+		else
+		{
+			mainDisplay();
+			cout << "please enter a value id number (0-49)" << endl;
+		}
+	}
+	else if (toupper(arg) == 'Q'){
+		run = false;
+	}
+	else if (toupper(arg) == 'H'){
+		helpScreen();
+		mainDisplay();
+	}
 }
 
 void mainDisplay() 
@@ -97,7 +134,7 @@ void mainDisplay()
 
 	for (int i = 0; i < 7; i++)
 	{
-		val[i] = combo.RetrievePosition(i + 1);
+		value[i] = combo.RetrievePosition(i + 1);
 	}
 
 	cout << (char)218 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)191 << endl;
@@ -110,17 +147,17 @@ void mainDisplay()
 	// chunks through a for loop printing Rs on odd interations and Ls on evens
 	for (int i = 0; i < 7; i++) {
 		if (i & 1) {
-			if (sel == i) {
-				cout << ">" << "R" << val[i] << "<";
+			if (currentlySelected == i) {
+				cout << ">" << "R" << value[i] << "<";
 			}
-			else cout << "R" << val[i];
+			else cout << "R" << value[i];
 			
 		}
 		else {
-			if (sel == i) {
-				cout << ">" << "L" << val[i] << "<";
+			if (currentlySelected == i) {
+				cout << ">" << "L" << value[i] << "<";
 			}
-			else cout << "L" << val[i];
+			else cout << "L" << value[i];
 		}
 	}
 	cout << (char)179 << "                                        " << (char)179 << endl;
@@ -147,14 +184,14 @@ void saveToFile(string filename){
 		for (int i = 0; i < 7; i++) {
 			if (i & 1) {
 
-				cout << "R" << val[i];
+				cout << "R" << value[i];
 
 			}
 			else {
-				if (sel == i) {
-					cout << ">" << "L" << val[i] << "<";
+				if (currentlySelected == i) {
+					cout << ">" << "L" << value[i] << "<";
 				}
-				else cout << "L" << val[i];
+				else cout << "L" << value[i];
 			}
 		}
 		cout << "File Succesfully Saved" << endl;

@@ -1,10 +1,9 @@
-#include "List.h"
 #include "Node.h"
-#include <iostream>
+#include "List.h"
 
 using namespace std;
 
-int List::RetrieveValue(int value)
+int List::RetrieveValue(int valueue)
 {
 	return 0;
 }
@@ -12,16 +11,16 @@ int List::RetrievePosition(int nodenum) {
 
 	int num = nodenum - 1;
 
-	int val = 0;
+	int value = 0;
 	current = first;
 	for (int i = 0; i < nodenum; i++) {
 		if (i == num) {
-			val = current->data;
+			value = current->data;
 			break;
 		}
 		else {
 			if (current->next == nullptr) {
-				grow();
+				current->next = new Node();
 				current = current->next;
 			}
 			else {
@@ -29,7 +28,7 @@ int List::RetrievePosition(int nodenum) {
 			}
 		}
 	}
-	return val;
+	return value;
 }
 
 List::~List()
@@ -41,65 +40,13 @@ bool List::empty() const
 	return false;
 }
 
-void List::grow()
-{
-}
-
 void List::Add(int num) {
-Node *node = new Node();
-node->data = num;
-
-if (first == NULL)
-{
-	first = node;
+	current->data = num;
 }
-else
+
+void List::DeleteValue(int valueue)
 {
-	Node *currNode = first;
-	Node *prevNode = NULL;
-
-	while (currNode != NULL)
-	{
-		prevNode = currNode;
-		currNode = currNode->next;
-	}
-
-	if (prevNode != NULL)
-	{
-		prevNode->next = node;
-	}
-}
-	}
-
-void List::DeleteValue(int value)
-{
-	Node *node = first;
-	Node *prev = NULL;
-
-	while (node != NULL)
-	{
-		if (node->data == value)
-		{
-			break;
-		}
-
-		prev = node;
-		node = node->next;
-	}
-
-	if (node != NULL)
-	{
-		if (node == first)
-		{
-			first = node->next;
-		}
-		else
-		{
-			prev->next = node->next;
-		}
-
-		delete node;
-	}
+	current->data = 0;
 }
 
 void List::DeletePosition(int nodenum)
@@ -120,19 +67,28 @@ void List::DeletePosition(int nodenum)
 
 void List::DeleteAll()
 {
+	Node* next;
+	current = first;
 
+	while (current->next != nullptr){
+		current->data = 0;
+		next = current->next;
+		current = next;
+
+	}
+	current->data = 0;
 }
 
-void List::InsertAfterValue(int value, int num)
+void List::InsertAfterValue(int valueue, int num)
 {
 	current = first;
 
-		for (int i = 0; i <= value++; i++) {
-			if (i == value++) {
+		for (int i = 0; i <= valueue++; i++) {
+			if (i == valueue++) {
 				current->data = num;
 			}
 			else {
-				grow();
+				current->next = new Node();
 				current = current = current->next;
 			}
 		}
@@ -151,7 +107,7 @@ void List::InsertAtPosition(int nodenum, int num)
 			break;
 		}
 		if (current->next == nullptr) {
-			grow();
+			current->next = new Node();
 			current = current->next;
 		}
 		else {
