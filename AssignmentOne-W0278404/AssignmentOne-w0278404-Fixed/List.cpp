@@ -1,22 +1,27 @@
+#include "Node.h"
 #include "List.h"
-int List::RetrieveValue(int value)
+
+using namespace std;
+
+int List::RetrieveValue(int valueue)
 {
 	return 0;
 }
+// gets the value at a position
 int List::RetrievePosition(int nodenum) {
 
 	int num = nodenum - 1;
 
-	int val = 0;
+	int value = 0;
 	current = first;
 	for (int i = 0; i < nodenum; i++) {
 		if (i == num) {
-			val = current->data;
+			value = current->data;
 			break;
 		}
 		else {
 			if (current->next == nullptr) {
-				grow();
+				current->next = new Node();
 				current = current->next;
 			}
 			else {
@@ -24,7 +29,7 @@ int List::RetrievePosition(int nodenum) {
 			}
 		}
 	}
-	return val;
+	return value;
 }
 
 List::~List()
@@ -36,41 +41,63 @@ bool List::empty() const
 	return false;
 }
 
-void List::grow()
-{
+// adds data to the current link
+void List::Add(int num) {
+	current->data = num;
 }
 
-void List::Add(int num)
-{
-}
-
+// deletes the data from the current link 
 void List::DeleteValue(int value)
 {
+	current->data = 0;
 }
 
+// deletes the data from the specified link 
 void List::DeletePosition(int nodenum)
 {
+	current = first;
+	for (int i = 0; i < nodenum; i++) {
+		if (i == nodenum -1) {
+			current->data = 0;
+			break;
+		}
+		else {
+			current = current->next;
+		}
+	}
 }
 
+//Deletes all data (sets it to zero)
 void List::DeleteAll()
 {
-}
+	Node* next;
+	current = first;
 
+	while (current->next != nullptr){
+		current->data = 0;
+		next = current->next;
+		current = next;
+
+	}
+	current->data = 0;
+}
+//Inserts a new data value after the spcified link
 void List::InsertAfterValue(int value, int num)
 {
-	current = first
+	current = first;
 
 		for (int i = 0; i <= value++; i++) {
 			if (i == value++) {
 				current->data = num;
 			}
 			else {
-				grow();
-				current = current = current->next;
+				current->next = new Node();
+				current = current->next;
 			}
 		}
 }
 
+// inserts data at a node number
 void List::InsertAtPosition(int nodenum, int num)
 {
 	current = first;
@@ -80,11 +107,11 @@ void List::InsertAtPosition(int nodenum, int num)
 	for (int i = 0; i <= nodenum; i++) {
 		
 		if (i == nodenum) {
-			current->data = num
-				break;
+			current->data = num;
+			break;
 		}
 		if (current->next == nullptr) {
-			grow();
+			current->next = new Node();
 			current = current->next;
 		}
 		else {

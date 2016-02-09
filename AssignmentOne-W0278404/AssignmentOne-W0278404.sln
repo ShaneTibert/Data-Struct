@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssignmentOne-W0278404", "AssignmentOne-W0278404\AssignmentOne-W0278404.vcxproj", "{B8280477-4DB1-4DD5-BE56-7B901FBDA293}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssignmentOne-w0278404-Fixed", "AssignmentOne-w0278404-Fixed\AssignmentOne-w0278404-Fixed.vcxproj", "{15774357-1E2D-47B1-B239-AAB33FCC0751}"
 EndProject
 Global
@@ -15,14 +13,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Debug|x64.ActiveCfg = Debug|x64
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Debug|x64.Build.0 = Debug|x64
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Debug|x86.ActiveCfg = Debug|Win32
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Debug|x86.Build.0 = Debug|Win32
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Release|x64.ActiveCfg = Release|x64
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Release|x64.Build.0 = Release|x64
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Release|x86.ActiveCfg = Release|Win32
-		{B8280477-4DB1-4DD5-BE56-7B901FBDA293}.Release|x86.Build.0 = Release|Win32
 		{15774357-1E2D-47B1-B239-AAB33FCC0751}.Debug|x64.ActiveCfg = Debug|x64
 		{15774357-1E2D-47B1-B239-AAB33FCC0751}.Debug|x64.Build.0 = Debug|x64
 		{15774357-1E2D-47B1-B239-AAB33FCC0751}.Debug|x86.ActiveCfg = Debug|Win32

@@ -1,8 +1,10 @@
 #pragma once
-class node
+
+class Node
 {
+public:
 	int data;
-	node *next;
-	node() : data(0), next(nullptr) {};
-	~node();
+	Node *next;
+	Node() : data(0), next(nullptr) {};
+	~Node();
 };

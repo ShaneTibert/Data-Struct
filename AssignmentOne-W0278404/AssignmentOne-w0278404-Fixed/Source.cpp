@@ -3,92 +3,126 @@
 #include <fstream>
 #include "List.h"
 
+// Shane.J.Tibert - W0278404
+// Class PROG2400
+
 using namespace std;
 
-int sel = 6;
-int val[7];
+int currentlySelected = 6;
+int value[7];
 
 char** filename;
 
-bool saveflag = false;
+bool saveBool = false;
 bool run = true;
 
-List combo;
+// creates a list to use with the program
+List Lock;
 
-void display();
-void commands(char arg, int val);
-void help();
+void mainDisplay();
+void commands(char arg, int value);
+void helpScreen();
+void saveToFile();
 
-int main(int argc, char** argv) {
-	if (argc > 1) {
-		filename[0] = argv[0];
+//main take any arg and uses it as the save file
+int main(int args, char** fileArg) {
+
+	if (args > 1) {
+		filename = fileArg;
 	}
-	char** filename = argv;
-	sel = 1;
 
-	char input[4];
-	char cmd;
-	char** filename = argv;
+	currentlySelected = 1;
 
-	int val = 0;
+	// uses a 16 char long array to recieve input
+	char input[16];
+	char inCommand;
 
-	display();
+	int value = 0;
+
+	mainDisplay();
 
 	while (run) {
-		val = 0;
+		value = 0;
 
-		cout << ">>";
+		cout << ">";
 
 		cin.getline(input, 16);
 
-		cmd = input[0];
+		inCommand = input[0];
 
+		// checks if the value entered is correct
 		if (input[1] == ' ') {
 			if (isdigit(input[2])) {
 
-				val = 0;
+				value = 0;
 
-				if (input[2] == '1') {
-					val += 10;
-				}
-				if (input[2] == '2') {
-					val += 20;
-				}
-				if (input[2] == '3') {
-					val += 30;
-				}
-				if (input[2] == '4') {
-					val += 40;
-				}
-				if (input[2] == '5') {
-					val += 50;
-				}
-				if (input[2] == '6') {
-					val += 60;
-				}
-				if (input[2] == '7') {
-					val += 70;
-				}
-				if (input[2] == '8') {
-					val += 80;
-				}
-				if (input[2] == '9') {
-					val += 90;
-				}
+				// values of input are ascii, -48 corrects the values nicely
 				if (isdigit(input[3])) {
-					val += input[3] - 48;
+					value = (((int)input[2]-48) * 10) + ((int)input[3] - 48);
 				}
-				else {
-					val = val / 10;
+				else{
+					value = (int)input[2] - 48;
 				}
 			}
 		}
-		commands(cmd, val);
+		commands(inCommand, value);
+	}
+
+	// checks if the user has pressed e, and if an arg was given
+	if (saveBool == true && args > 1){
+		saveToFile();
 	}
 }
 
-void commands(char arg, int val)
+void commands(char arg, int value)
 {
+	// deletes the currently selected item (sets to zero)
+	if (toupper(arg) == 'D'){
+		Lock.DeletePosition(currentlySelected);
+		mainDisplay();
+	}
+	// resets the entire linked list
+	else if (toupper(arg) == 'R'){
+		Lock.DeleteAll();
+		mainDisplay();
+	}
+	// goes to a certain link
+	else if (toupper(arg) == 'G'){
+		if (value > 0 && value < 8){
+			currentlySelected = value;
+			mainDisplay();
+		}
+		else cout << "Invalueid Value to goto" << endl;
+	}
+	// exits with saving
+	else if (toupper(arg) == 'E'){
+		run = false;
+		saveBool = true;
+	}
+	// subsitutes current value
+	else if (toupper(arg) == 'S'){
+		if (value > -1) {
+			if (value < 50){
+				Lock.InsertAtPosition(currentlySelected, value);
+				mainDisplay();
+			}
+		}
+		else
+		{
+			// if its out of range, display error
+			mainDisplay();
+			cout << "please enter a valid number" << endl;
+		}
+	}
+	// quits without saving
+	else if (toupper(arg) == 'Q'){
+		run = false;
+	}
+	// starts help
+	else if (toupper(arg) == 'H'){
+		helpScreen();
+		mainDisplay();
+	}
 }
 
 void mainDisplay() 
@@ -97,64 +131,67 @@ void mainDisplay()
 
 	for (int i = 0; i < 7; i++)
 	{
-		val[i] = combo.RetrievePosition(i + 1);
+		value[i] = Lock.RetrievePosition(i + 1);
 	}
-
-	cout << (char)218 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)191 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-
+	// very nice display if i do say so myself :)
+	cout << (char)218 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)191 << endl;
+	cout << (char)179 << "                Combination Lock                  " << (char)179 << endl;
+	cout << (char)179 << "           type help for more details             " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)179 << "         ";
 	// chunks through a for loop printing Rs on odd interations and Ls on evens
 	for (int i = 0; i < 7; i++) {
+		cout << " ";
 		if (i & 1) {
-			if (sel == i) {
-				cout << ">" << "R" << val[i] << "<";
+			if (currentlySelected == i+1) {
+				cout << ">" << "L" << value[i] << "<";
 			}
-			else cout << "R" << val[i];
+			else cout << "L" << value[i];
 			
 		}
 		else {
-			if (sel == i) {
-				cout << ">" << "L" << val[i] << "<";
+			if (currentlySelected == i +1) {
+				cout << ">" << "R" << value[i] << "<";
 			}
-			else cout << "L" << val[i];
+			else cout << "R" << value[i];
 		}
 	}
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
-	cout << (char)179 << "                                        " << (char)179 << endl;
+	cout   << "                  " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)179 << "                                                  " << (char)179 << endl;
+	cout << (char)192 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)196 << (char)217 << endl;
 }
 void helpScreen()
 {
-	cout << "D = Delete | R = Reset | E = Exit And Save" << endl;
-	cout << "G = Goto | S = Subsitute | Q = Quit And Do Not Save" << endl;
+	cout << "D = Delete | R = Reset | E = Exit And Save                |" << endl;
+	cout << "G (value[1-7]) = Goto | S (value[1-49]) = Subsitue        | " << endl; 
+	cout << "Q = Quit And Do Not Save                                  |" << endl;
+	cout << "If no value is given, the commands that require a    " << endl;
+	cout << "will not work." << endl;
+	cout << "" << endl;
+	cout << "Remember to include a space between the command and value!." << endl;
 
 	_getch();
 }
-void saveToFile(string filename){
+void saveToFile(){
 
-
+	// saves data to a specified file.
 		ofstream dataForFile;
 	try {
 
-		dataForFile.open(filename);
-		dataForFile << "The Saved Combo is: ";
+		dataForFile.open(filename[1]);
+		dataForFile << "The Saved Lock is: ";
 		for (int i = 0; i < 7; i++) {
 			if (i & 1) {
-
-				cout << "R" << val[i];
-
+				dataForFile << "L" << value[i];
 			}
 			else {
-				if (sel == i) {
-					cout << ">" << "L" << val[i] << "<";
-				}
-				else cout << "L" << val[i];
+				dataForFile << "R" << value[i];
 			}
 		}
 		cout << "File Succesfully Saved" << endl;
