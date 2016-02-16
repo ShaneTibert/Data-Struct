@@ -1,7 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <fstream>
-#include <string.h>
+#include "Snake.h"
 
 using namespace std;
 
@@ -21,6 +21,9 @@ int main(int argc, char** argv) {
 	}
 
 	mainDisplay();
+	Snake solid;
+	solid.seekAndDistroy(maze,lines,sel);
+
 	_getch();
 	return 0;
 
@@ -46,7 +49,7 @@ void readFromFile(char** filename) {
 		if (filename[1] != nullptr)
 		{
 			read.open(filename[1]);
-			char i;
+			char i = ' ';
 			
 			if (read.is_open()) {
 				char i = ' ';
