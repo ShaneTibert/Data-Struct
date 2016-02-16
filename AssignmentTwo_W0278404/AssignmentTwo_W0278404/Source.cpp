@@ -14,6 +14,7 @@ char** maze = new char *[255];
 void mainDisplay();
 void readFromFile(char**);
 void help();
+void saveToFile();
 
 int main(int argc, char** argv) {
 	if (argc > 1) {
@@ -21,11 +22,14 @@ int main(int argc, char** argv) {
 	}
 
 	mainDisplay();
-	Snake solid;
-	solid.searchAndDistroy(maze,lines,sel);
+	_getch();
 
+	Snake solid;
+	maze = solid.searchAndDistroy(maze,lines,sel);
+	mainDisplay();
 	cout << "Problem Solved!" << endl;
 
+	saveToFile();
 	_getch();
 	return 0;
 
@@ -77,6 +81,30 @@ void readFromFile(char** filename) {
 		cout << e.what();
 	}
 	read.close();
+}
+void saveToFile(){
+
+	// saves data to a specified file.
+	ofstream dataForFile;
+	try {
+
+		dataForFile.open("output.txt");
+		dataForFile << "The finished maze: " << '\n';
+		for (int i = 0; i < lines; i++) {
+			for (int c = 0; c < sel; c++) {
+				if (maze[i][c] == 'X'){
+					maze[i][c] = ' ';
+				}
+				dataForFile << maze[i][c];
+			}
+			dataForFile <<'\n';
+		}
+	}
+	catch (exception e) {
+		cout << e.what();
+	}
+	dataForFile.close();
+
 }
 
 		/*dataForFile.open(filename);

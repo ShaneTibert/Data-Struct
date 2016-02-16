@@ -16,7 +16,7 @@ public:
 	bool deadEnd;
 
 	void isValidMove(char** maze, int move);
-	void searchAndDistroy(char** maze, int sel, int lines);
+	char** searchAndDistroy(char** maze, int sel, int lines);
 	void weNeedBackup(char** maze, int sel, int lines);
 };
 
