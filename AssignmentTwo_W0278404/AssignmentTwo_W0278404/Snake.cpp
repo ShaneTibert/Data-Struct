@@ -56,7 +56,7 @@ char** Snake::searchAndDistroy(char** maze, int sel, int lines){
 		}
 		
 		/*system("cls");
-		for (int i = 0; i < lines - 1; i++) {
+		for (int i = 0; i < lines; i++) {
 			for (int c = 0; c < sel; c++) {
 				cout << maze[i][c];
 			}
@@ -64,7 +64,7 @@ char** Snake::searchAndDistroy(char** maze, int sel, int lines){
 		}
 		_getch();*/
 
-		if (posX == sel-1&&posY == lines-3){
+		if (posX == sel-2 && posY == lines - 2){
 			unsolved = false;
 		}
 	}
@@ -98,6 +98,9 @@ void Snake::isValidMove(char** maze, int move){
 }
 void Snake::weNeedBackup(char** maze, int sel, int lines){
 	while (deadEnd == true){
+		if (posX == sel&&posY == lines - 1){
+			unsolved = false;
+		}
 		maze[posY][posX] = 'X';
 		posX = path.PeekX();
 		posY = path.PeekY();
@@ -105,7 +108,6 @@ void Snake::weNeedBackup(char** maze, int sel, int lines){
 		path.Pop();
 		posX = path.PeekX();
 		posY = path.PeekY();
-
 		for (int c = 0; c < 4; c++){
 			isValidMove(maze, c);
 			if (deadEnd == false){

@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 	_getch();
 
 	Snake solid;
-	maze = solid.searchAndDistroy(maze,lines,sel);
+	maze = solid.searchAndDistroy(maze,sel,lines);
 	mainDisplay();
 	cout << "Problem Solved!" << endl;
 
