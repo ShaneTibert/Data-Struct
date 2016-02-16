@@ -22,7 +22,9 @@ int main(int argc, char** argv) {
 
 	mainDisplay();
 	Snake solid;
-	solid.seekAndDistroy(maze,lines,sel);
+	solid.searchAndDistroy(maze,lines,sel);
+
+	cout << "Problem Solved!" << endl;
 
 	_getch();
 	return 0;

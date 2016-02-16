@@ -18,24 +18,24 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Jenga.cpp">
+    <ClCompile Include="JengaBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Snake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JengaBrick.cpp">
+    <ClCompile Include="Jenga.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Jenga.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JengaBrick.h">
+    <ClInclude Include="JengaBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Snake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Jenga.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

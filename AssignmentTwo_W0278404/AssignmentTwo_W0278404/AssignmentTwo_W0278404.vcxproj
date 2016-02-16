@@ -143,13 +143,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Jenga.cpp" />
-    <ClCompile Include="JengaBrick.cpp" />
+    <ClCompile Include="JengaBlock.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Jenga.h" />
-    <ClInclude Include="JengaBrick.h" />
+    <ClInclude Include="JengaBlock.h" />
     <ClInclude Include="Snake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
