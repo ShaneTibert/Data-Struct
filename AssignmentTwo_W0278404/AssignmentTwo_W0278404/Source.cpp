@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <fstream>
+#include <time.h>
 #include "Snake.h"
 
 using namespace std;
@@ -16,7 +17,10 @@ void readFromFile(char**);
 void help();
 void saveToFile();
 
+clock_t t1, t2;
+
 int main(int argc, char** argv) {
+
 	if (argc > 1) {
 		readFromFile(argv);
 	}
@@ -25,9 +29,13 @@ int main(int argc, char** argv) {
 	_getch();
 
 	Snake solid;
+	t1 = clock();
 	maze = solid.searchAndDistroy(maze,sel,lines);
+	t2 = clock();
+	float et = float(t2) - float(t1);
+
 	mainDisplay();
-	cout << "Problem Solved!" << endl;
+	cout << "Problem Solved!" << et << endl;
 
 	saveToFile();
 	_getch();
