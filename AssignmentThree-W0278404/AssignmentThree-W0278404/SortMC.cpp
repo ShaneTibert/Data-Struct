@@ -117,3 +117,36 @@ void SortMC::mergeSort(int a[], int left, int right){
 		mergeSort(a, left, (mid + 1), right);
 	}
 }
+void SortMC::quickSort(int a[], int left, int right)
+{
+	int middle;
+
+	if (left < right)
+	{
+		middle = partition(a, left, right);
+		quickSort(a, left, middle - 1);
+		quickSort(a, middle + 1, right);
+	}
+}
+int SortMC::partition(int a[], int left, int right)
+{
+	int  index = left;
+	int temp;
+	int middle = a[left];
+
+	for (int i = left + 1; i <= right; i++)
+	{
+		if (a[i] <= middle)
+		{
+			index++;
+			temp = a[i];
+			a[i] = a[index];
+			a[index] = temp;
+		}
+	}
+	temp = a[index];
+	a[index] = a[left];
+	a[left] = temp;
+
+	return index;
+}

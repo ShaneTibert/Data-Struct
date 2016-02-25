@@ -8,7 +8,9 @@ using namespace std;
 
 class SortMC
 {
-
+private:
+	static int partition(int a[], int left, int right);
+	static void mergeSort(int a[], int left, int middle, int right);
 public:
 	SortMC();
 	virtual ~SortMC();
@@ -17,7 +19,8 @@ public:
 	void insertionSort(int a[], int length);
 	void shellSort(int a[], int length);
 	static void mergeSort(int a[], int left, int right);
-	static void mergeSort(int a[], int left, int middle, int right);
+
+	static void quickSort(int a[], int left, int right);
 };
 
 #endif
