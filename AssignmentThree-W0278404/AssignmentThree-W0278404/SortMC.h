@@ -14,10 +14,10 @@ private:
 public:
 	SortMC();
 	virtual ~SortMC();
-	static void bubbleSort(int a[], int length);
-	static void selectionSort(int a[], int length);
-	void insertionSort(int a[], int length);
-	void shellSort(int a[], int length);
+	static int* bubbleSort(int a[], int length);
+	static int* selectionSort(int a[], int length);
+	int* insertionSort(int a[], int length);
+	int* shellSort(int a[], int length);
 	static void mergeSort(int a[], int left, int right);
 
 	static void quickSort(int a[], int left, int right);

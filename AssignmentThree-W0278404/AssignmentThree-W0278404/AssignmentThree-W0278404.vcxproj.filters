@@ -18,12 +18,18 @@
     <ClInclude Include="SortMC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FileWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SortMC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

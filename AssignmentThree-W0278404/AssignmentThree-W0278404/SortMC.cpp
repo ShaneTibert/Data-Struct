@@ -8,7 +8,7 @@ SortMC::~SortMC()
 {
 
 }
-void SortMC::bubbleSort(int a[], int length) {
+int* SortMC::bubbleSort(int a[], int length) {
 	int outer, inner;
 	for (outer = length - 1; outer > 0; outer--)
 	{ // counting down
@@ -22,8 +22,9 @@ void SortMC::bubbleSort(int a[], int length) {
 			}
 		}
 	}
+	return a;
 }
-void SortMC::selectionSort(int a[], int length) {
+int* SortMC::selectionSort(int a[], int length) {
 	int outer, inner, min;
 	for (outer = 0; outer < length - 1; outer++)
 	{ // outer counts down
@@ -39,8 +40,9 @@ void SortMC::selectionSort(int a[], int length) {
 		a[outer] = a[min];
 		a[min] = temp;
 	}
+	return a;
 }
-void SortMC::insertionSort(int a[], int length)
+int* SortMC::insertionSort(int a[], int length)
 	{
 		int i, j, tmp;
 		for (i = 1; i < length; i++)
@@ -54,8 +56,9 @@ void SortMC::insertionSort(int a[], int length)
 				j--;
 			} //end of while loop
 		} //end of for loop
+		return a;
 	}
-void SortMC::shellSort(int a[], int length)
+int* SortMC::shellSort(int a[], int length)
 {
 	int i, j, increment, temp;
 	for (increment = length / 2; increment > 0; increment /= 2)
@@ -77,8 +80,10 @@ void SortMC::shellSort(int a[], int length)
 			a[j] = temp;
 		}
 	}
+	return a;
 }
 void SortMC::mergeSort(int a[], int left, int middle, int right){
+	// creates temp array and needed variables
 	int temp[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	int i, left_end, num_elements, tmp_pos;
 
@@ -110,8 +115,13 @@ void SortMC::mergeSort(int a[], int left, int right){
 
 	if (right > left)
 	{
+		// Middle for splitting
 		int mid = (right + left) / 2;
+
+		//sorts left, recursivly
 		mergeSort(a, left, mid);
+
+		//sorts Right, recursivly
 		mergeSort(a, (mid + 1), right);
 
 		mergeSort(a, left, (mid + 1), right);
