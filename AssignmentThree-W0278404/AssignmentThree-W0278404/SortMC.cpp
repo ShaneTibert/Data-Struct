@@ -1,9 +1,19 @@
 #include <iostream>
+#include <fstream>
 #include "SortMC.h"
+#include "FileWriter.h"
 
 using namespace std;
 
+int arraysize = 100000;
+int temp[100000];
+int extTemp[2][1000];
+int externalSortSize = 1000;
 
+SortMC::SortMC()
+{
+
+}
 SortMC::~SortMC()
 {
 
@@ -82,38 +92,30 @@ int* SortMC::shellSort(int a[], int length)
 	}
 	return a;
 }
+
 void SortMC::mergeSort(int a[], int left, int middle, int right){
 	// creates temp array and needed variables
-	int temp[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	int i, left_end, num_elements, tmp_pos;
 
-	left_end = (middle - 1);
+	left_end = (middle);
 	tmp_pos = left;
 	num_elements = (right - left + 1);
 
-	while ((left <= left_end) && (middle <= right))
-	{
-		if (a[left] <= a[middle])
-			temp[tmp_pos++] = a[left++];
+	for (i = 0; tmp_pos < middle && left_end < right; i++)
+		if (a[tmp_pos] <=a[left_end])
+			temp[i] = a[tmp_pos++];
 		else
-			temp[tmp_pos++] = a[middle++];
-	}
-
-	while (left <= left_end)
-		temp[tmp_pos++] = a[left++];
-
-	while (middle <= right)
-		temp[tmp_pos++] = a[middle++];
-
-	for (i = 0; i < num_elements; i++)
-	{
-		a[right] = temp[right];
-		right--;
-	}
+			temp[i] = a[left_end++];
+	for ( ; tmp_pos < middle; i++)
+		temp[i] = a[tmp_pos++];
+	for ( ; left_end < right; i++)
+		temp[i] = a[left_end++];
+	for (int index = 0; index < right - left; index++)
+		a[left + index] = temp[index];
 }
 void SortMC::mergeSort(int a[], int left, int right){
 
-	if (right > left)
+	if (right - left > 1)
 	{
 		// Middle for splitting
 		int mid = (right + left) / 2;
@@ -122,9 +124,9 @@ void SortMC::mergeSort(int a[], int left, int right){
 		mergeSort(a, left, mid);
 
 		//sorts Right, recursivly
-		mergeSort(a, (mid + 1), right);
+		mergeSort(a, (mid), right);
 
-		mergeSort(a, left, (mid + 1), right);
+		mergeSort(a, left, (mid), right);
 	}
 }
 void SortMC::quickSort(int a[], int left, int right)
@@ -159,4 +161,246 @@ int SortMC::partition(int a[], int left, int right)
 	a[left] = temp;
 
 	return index;
+}
+void SortMC::externalMergeSort(int a[2][1000], int left, int middle, int right) {
+	// creates temp array and needed variables
+	int i, left_end, num_elements, tmp_pos;
+
+	left_end = (middle);
+	tmp_pos = left;
+	num_elements = (right - left + 1);
+
+	for (i = 0; tmp_pos < middle && left_end < right; i++)
+		if (a[0][tmp_pos] <= a[0][left_end]) {
+			extTemp[0][i] = a[0][tmp_pos++];
+			extTemp[1][i] = a[1][tmp_pos++];
+		}
+		else {
+			extTemp[0][i] = a[0][left_end++];
+			extTemp[1][i] = a[1][left_end++];
+		}
+	for (; tmp_pos < middle; i++) {
+		extTemp[0][i] = a[0][tmp_pos++];
+		extTemp[1][i] = a[1][tmp_pos++];
+	}
+	for (; left_end < right; i++) {
+		extTemp[0][i] = a[0][left_end++];
+		extTemp[1][i] = a[1][left_end++];
+	}
+	for (int index = 0; index < right - left; index++) {
+		a[0][left + index] = extTemp[0][index];
+		a[1][left + index] = extTemp[1][index];
+	}
+}
+void SortMC::externalMergeSort(int a[2][1000], int left, int right) {
+
+	if (right - left > 1)
+	{
+		// Middle for splitting
+		int mid = (right + left) / 2;
+
+		//sorts left, recursivly
+		externalMergeSort(a, left, mid);
+
+		//sorts Right, recursivly
+		externalMergeSort(a, (mid), right);
+
+		externalMergeSort(a, left, (mid), right);
+	}
+}
+void SortMC::externalMergeBase() {
+	int unsorted[2][1000];
+	ifstream read;
+	ifstream firstRead;
+	ifstream secondRead;
+	ifstream secondFirstRead;
+	ifstream secondSecondRead;
+	FileWriter fw;
+	ofstream firstFile;
+	ofstream secondFile;
+	ofstream secondFirstFile;
+	ofstream secondSecondFile;
+	ofstream sortedFile;
+
+	try {
+		read.open("unsortedFile.txt");
+		firstFile.open("firstFile.txt");
+		secondFile.open("secondFile.txt");
+		char i = ' ';
+		string tempC;
+			int index = 0;
+			bool line = false;
+			bool first = true;
+			bool secondfirst = true;
+			if (read.is_open()) {
+				while (!read.eof()) {
+					i = read.get();
+
+					if (i != ';'&&i != ',') {
+						tempC += i;
+					}
+					else {
+						if (!line) {
+							unsorted[0][index] = atoi(tempC.c_str());
+							tempC = "";
+						}
+						else if (line) {
+							unsorted[1][index] = atoi(tempC.c_str());
+							tempC = "";
+						}
+					}
+
+
+
+					if (i == ';') {
+						index++;
+						line = false;
+					}
+					else if (i == ',') 
+						line = true;
+
+					if (index == 1000-1) {
+						externalMergeSort(unsorted, 0, 1000);
+						if (first) {
+							for (int i = 0; i < 1000 - 1; i++) {
+								secondFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
+							}
+							first = false;
+						}
+						else {
+							for (int i = 0; i < 1000 - 1; i++) {
+								firstFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
+							}
+							first = true;
+						}
+						index = 0;
+					}
+				}
+			}
+			index = 0;
+			read.close();
+			firstFile.close();
+			secondFile.close();
+			first = true;
+			line = false;
+			index = 0;
+			secondFirstFile.open("secondFirstFile.txt");
+			secondSecondFile.open("secondSecondFile.txt");
+			firstRead.open("firstFile.txt");
+			secondRead.open("secondFile.txt");
+			if (secondRead.is_open()) {
+				while (!secondRead.eof()||!firstRead.eof()) {
+
+					if (!first) {
+						i = secondRead.get();
+						first = true;
+					}
+					else {
+						i = firstRead.get();
+						first = false;
+					}
+
+
+					if (i != ';'&&i != ',') {
+						tempC += i;
+					}
+					else {
+						if (!line) {
+							unsorted[0][index] = atoi(tempC.c_str());
+							tempC = "";
+						}
+						else if (line) {
+							unsorted[1][index] = atoi(tempC.c_str());
+							tempC = "";
+						}
+					}
+
+
+
+					if (i == ';') {
+						index++;
+						line = false;
+					}
+					else if (i == ',')
+						line = true;
+
+					if (index == 1000 - 1) {
+						externalMergeSort(unsorted, 0, 1000);
+						if (secondfirst) {
+							for (int i = 0; i < 1000 - 1; i++) {
+								secondSecondFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
+							}
+							secondfirst = false;
+						}
+						else {
+							for (int i = 0; i < 1000 - 1; i++) {
+								secondFirstFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
+							}
+							secondfirst = true;
+						}
+						index = 0;
+					}
+
+				}
+			}
+			secondRead.close();
+			firstRead.close();
+			secondSecondFile.close();
+			secondFirstFile.close();
+
+			first = true;
+			secondFirstRead.open("secondFirstFile.txt");
+			secondSecondRead.open("secondSecondFile.txt");
+			sortedFile.open("sortedFile.txt");
+			if (secondSecondRead.is_open()) {
+				while (!secondSecondRead.eof() || !secondFirstRead.eof()) {
+
+					if (!first) {
+						i = secondSecondRead.get();
+						first = true;
+					}
+					else {
+						i = secondFirstRead.get();
+						first = false;
+					}
+
+
+					if (i != ';'&&i != ',') {
+						tempC += i;
+					}
+					else {
+						if (!line) {
+							unsorted[0][index] = atoi(tempC.c_str());
+							tempC = "";
+						}
+						else if (line) {
+							unsorted[1][index] = atoi(tempC.c_str());
+							tempC = "";
+						}
+					}
+
+
+
+					if (i == ';') {
+						index++;
+						line = false;
+					}
+					else if (i == ',')
+						line = true;
+
+					if (index == 1000 - 1) {
+						externalMergeSort(unsorted, 0, 1000);
+							for (int i = 0; i < 1000 - 1; i++) {
+								sortedFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
+							}
+						index = 0;
+					}
+
+				}
+			}
+
+	}
+	catch (exception e) {
+		cout << e.what();
+	}
 }

@@ -11,6 +11,7 @@ class SortMC
 private:
 	static int partition(int a[], int left, int right);
 	static void mergeSort(int a[], int left, int middle, int right);
+	static void externalMergeSort(int a[2][1000], int left, int middle, int right);
 public:
 	SortMC();
 	virtual ~SortMC();
@@ -19,8 +20,10 @@ public:
 	int* insertionSort(int a[], int length);
 	int* shellSort(int a[], int length);
 	static void mergeSort(int a[], int left, int right);
-
 	static void quickSort(int a[], int left, int right);
+	static void externalMergeSort(int a[2][1000], int left, int right);
+	static void externalMergeBase();
+
 };
 
 #endif
