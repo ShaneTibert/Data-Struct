@@ -2,6 +2,7 @@
 #include <fstream>
 #include "SortMC.h"
 #include "FileWriter.h"
+#include <Conio.h>
 
 using namespace std;
 
@@ -172,19 +173,19 @@ void SortMC::externalMergeSort(int a[2][1000], int left, int middle, int right) 
 
 	for (i = 0; tmp_pos < middle && left_end < right; i++)
 		if (a[0][tmp_pos] <= a[0][left_end]) {
-			extTemp[0][i] = a[0][tmp_pos++];
+			extTemp[0][i] = a[0][tmp_pos];
 			extTemp[1][i] = a[1][tmp_pos++];
 		}
 		else {
-			extTemp[0][i] = a[0][left_end++];
+			extTemp[0][i] = a[0][left_end];
 			extTemp[1][i] = a[1][left_end++];
 		}
 	for (; tmp_pos < middle; i++) {
-		extTemp[0][i] = a[0][tmp_pos++];
+		extTemp[0][i] = a[0][tmp_pos];
 		extTemp[1][i] = a[1][tmp_pos++];
 	}
 	for (; left_end < right; i++) {
-		extTemp[0][i] = a[0][left_end++];
+		extTemp[0][i] = a[0][left_end];
 		extTemp[1][i] = a[1][left_end++];
 	}
 	for (int index = 0; index < right - left; index++) {
@@ -226,7 +227,7 @@ void SortMC::externalMergeBase() {
 		read.open("unsortedFile.txt");
 		firstFile.open("firstFile.txt");
 		secondFile.open("secondFile.txt");
-		char i = ' ';
+		char i = NULL;
 		string tempC;
 			int index = 0;
 			bool line = false;
@@ -251,7 +252,6 @@ void SortMC::externalMergeBase() {
 					}
 
 
-
 					if (i == ';') {
 						index++;
 						line = false;
@@ -261,17 +261,17 @@ void SortMC::externalMergeBase() {
 
 					if (index == 1000-1) {
 						externalMergeSort(unsorted, 0, 1000);
-						if (first) {
-							for (int i = 0; i < 1000 - 1; i++) {
+						if (!first) {
+							for (int i = 0; i < 1000; i++) {
 								secondFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
 							}
-							first = false;
+							first = true;
 						}
 						else {
-							for (int i = 0; i < 1000 - 1; i++) {
+							for (int i = 0; i < 1000; i++) {
 								firstFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
 							}
-							first = true;
+							first = false;
 						}
 						index = 0;
 					}
@@ -288,16 +288,14 @@ void SortMC::externalMergeBase() {
 			secondSecondFile.open("secondSecondFile.txt");
 			firstRead.open("firstFile.txt");
 			secondRead.open("secondFile.txt");
-			if (secondRead.is_open()) {
-				while (!secondRead.eof()||!firstRead.eof()) {
+			if (secondRead.is_open()&&firstRead.is_open()) {
+				while (!firstRead.eof()&& !secondRead.eof()) {
 
 					if (!first) {
 						i = secondRead.get();
-						first = true;
 					}
 					else {
 						i = firstRead.get();
-						first = false;
 					}
 
 
@@ -305,24 +303,17 @@ void SortMC::externalMergeBase() {
 						tempC += i;
 					}
 					else {
-						if (!line) {
+						if (i == ',') {
 							unsorted[0][index] = atoi(tempC.c_str());
 							tempC = "";
 						}
-						else if (line) {
+						else if (i == ';') {
 							unsorted[1][index] = atoi(tempC.c_str());
 							tempC = "";
+							first = !first;
+							index++;
 						}
 					}
-
-
-
-					if (i == ';') {
-						index++;
-						line = false;
-					}
-					else if (i == ',')
-						line = true;
 
 					if (index == 1000 - 1) {
 						externalMergeSort(unsorted, 0, 1000);
@@ -353,15 +344,13 @@ void SortMC::externalMergeBase() {
 			secondSecondRead.open("secondSecondFile.txt");
 			sortedFile.open("sortedFile.txt");
 			if (secondSecondRead.is_open()) {
-				while (!secondSecondRead.eof() || !secondFirstRead.eof()) {
+				while (!secondFirstRead.eof() && !secondSecondRead.eof()) {
 
 					if (!first) {
 						i = secondSecondRead.get();
-						first = true;
 					}
 					else {
 						i = secondFirstRead.get();
-						first = false;
 					}
 
 
@@ -369,24 +358,17 @@ void SortMC::externalMergeBase() {
 						tempC += i;
 					}
 					else {
-						if (!line) {
+						if (i == ',') {
 							unsorted[0][index] = atoi(tempC.c_str());
 							tempC = "";
 						}
-						else if (line) {
+						else if (i == ';') {
 							unsorted[1][index] = atoi(tempC.c_str());
 							tempC = "";
+							index++;
+							first = !first;
 						}
 					}
-
-
-
-					if (i == ';') {
-						index++;
-						line = false;
-					}
-					else if (i == ',')
-						line = true;
 
 					if (index == 1000 - 1) {
 						externalMergeSort(unsorted, 0, 1000);
