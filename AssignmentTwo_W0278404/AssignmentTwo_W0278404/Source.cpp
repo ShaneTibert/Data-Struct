@@ -48,7 +48,9 @@ void mainDisplay()
 	system("cls");
 	for (int i = 0; i < lines; i++) {
 		for (int c=0; c < sel; c++) {
-			cout << maze[i][c];
+			if (maze[i][c] == 'X'){
+				cout << ' ';
+			}else cout << maze[i][c];
 		}
 		cout << endl;
 	}

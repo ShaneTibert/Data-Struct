@@ -55,14 +55,14 @@ char** Snake::searchAndDistroy(char** maze, int sel, int lines){
 
 		}
 	
-		system("cls");
-		for (int i = 0; i < lines; i++) {
-			for (int c = 0; c < sel; c++) {
-				cout << maze[i][c];
-			}
-			cout << endl;
-		}
-		_getch();
+		//system("cls");
+		//for (int i = 0; i < lines; i++) {
+		//	for (int c = 0; c < sel; c++) {
+		//		cout << maze[i][c];
+		//	}
+		//	cout << endl;
+		//}
+		//_getch();
 
 		if (posX == sel-2 && posY == lines - 2){
 			unsolved = false;
