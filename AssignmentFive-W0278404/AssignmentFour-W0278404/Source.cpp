@@ -7,6 +7,7 @@
 #include "Tree.h"
 #include "BinarySearch.h"
 #include "SequentialSearch.h"
+#include "Hashing.h"
 
 using namespace std;
 
@@ -26,6 +27,9 @@ int main()
 
 	BinarySearch bs;
 	SequentialSearch ss;
+
+	Hashing hasher;
+	hasher.Start();
 
 	int SequentialArray[1000];
 
@@ -67,6 +71,7 @@ int main()
 			{
 				cout << "  " << wordToCheck << endl;
 
+				hasher.Hash(wordToCheck);
 				WordTree.Root = WordTree.Insert(WordTree.Root, wordToCheck);
 
 			}
@@ -76,9 +81,11 @@ int main()
 	Reader.close();
 
 	_getch();
-	cout << "Tree:" << endl;
+	cout << "Hash Table:" << endl;
 
-	PrintAVL(WordTree.Root, 10);
+	hasher.PrintHashTable();
+
+
 	_getch();
 	cout << "Mispelled Words:" << endl;
 	wordToCheck = "";

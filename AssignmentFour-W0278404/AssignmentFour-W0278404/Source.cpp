@@ -20,6 +20,7 @@ BinaryNode* root;
 
 int main()
 {
+	int length = 10000;
 	clock_t starting;
 	clock_t ending;
 
@@ -28,22 +29,22 @@ int main()
 
 	int SequentialArray[10000];
 
-	for (int i = 0; i < 10000, i++;) {
+	for (int i = 0; i < length, i++;) {
 		SequentialArray[i] = i + 1;
 	}
 	starting = clock();
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < length; i++)
 	{
-		ss.search(SequentialArray, i, 10000-1);
+		ss.search(SequentialArray, i, length - 1);
 	}
 	ending = clock();
 
 	cout << "Search Time: " << ((float)ending - (float)starting) / 100 << " seconds" << endl;
 
 	starting = clock();
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < length; i++)
 	{
-		bs.search(SequentialArray, i + 1, 10000 - 1);
+		bs.search(SequentialArray, i + 1, length - 1);
 	}
 	ending = clock();
 
