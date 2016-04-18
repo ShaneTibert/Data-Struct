@@ -116,13 +116,8 @@ BinaryNode* Tree::LL(BinaryNode* branch)
 
 BinaryNode* Tree::Insert(BinaryNode* branch, string storedWord)
 {
-	if (branch == NULL)
-	{
-		branch = new BinaryNode();
-		branch->storedWord = storedWord;
-		branch->height = 0;
-	}
-	else
+
+	if (branch != NULL)
 	{
 
 		if (storedWord > branch->storedWord)
@@ -155,10 +150,12 @@ BinaryNode* Tree::Insert(BinaryNode* branch, string storedWord)
 				}
 			}
 		}
-		else
-		{
+	}
 
-		}
+	else{
+		 branch = new BinaryNode();
+		 branch->storedWord = storedWord;
+		 branch->height = 0;
 	}
 
 	int height = 0;
@@ -179,15 +176,13 @@ BinaryNode* Tree::Insert(BinaryNode* branch, string storedWord)
 	return branch;
 }
 
-
+//gets the trees hight from a Branch
 int Tree::TreeHeight(BinaryNode* branch)
 {
 	int height;
-	if (branch == NULL)
-		return 0;
-	else
-	{
+	if (branch != NULL){
 		height = branch->height;
 		return height;
-	}
+	}else return 0;
+
 }

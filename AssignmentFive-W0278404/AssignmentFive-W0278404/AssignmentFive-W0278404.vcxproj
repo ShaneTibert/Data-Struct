@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{62B1B774-762F-4ACC-9BFC-A3EF35995589}</ProjectGuid>
+    <ProjectGuid>{7B50C3FF-B815-40FE-B25D-1D8751029273}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>AssignmentFourW0278404</RootNamespace>
+    <RootNamespace>AssignmentFiveW0278404</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -25,7 +25,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -78,17 +78,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BinaryNode.cpp" />
-    <ClCompile Include="BinarySearch.cpp" />
-    <ClCompile Include="SequentialSearch.cpp" />
-    <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Tree.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BinarySearch.h" />
-    <ClInclude Include="SequentialSearch.h" />
-    <ClInclude Include="BinaryNode.h" />
-    <ClInclude Include="Tree.h" />
+    <ClCompile Include="..\AssignmentFour-W0278404\BinaryNode.cpp" />
+    <ClCompile Include="..\AssignmentFour-W0278404\BinarySearch.cpp" />
+    <ClCompile Include="..\AssignmentFour-W0278404\Hashing.cpp" />
+    <ClCompile Include="..\AssignmentFour-W0278404\SequentialSearch.cpp" />
+    <ClCompile Include="..\AssignmentFour-W0278404\Source.cpp" />
+    <ClCompile Include="..\AssignmentFour-W0278404\Tree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

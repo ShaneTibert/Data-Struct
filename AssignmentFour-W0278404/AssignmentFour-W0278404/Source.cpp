@@ -26,32 +26,32 @@ int main()
 	BinarySearch bs;
 	SequentialSearch ss;
 
-	int SequentialArray[1000];
+	int SequentialArray[10000];
 
-	for (int i = 0; i < 1000, i++;) {
+	for (int i = 0; i < 10000, i++;) {
 		SequentialArray[i] = i + 1;
 	}
 	starting = clock();
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 10000; i++)
 	{
-		ss.search(SequentialArray, i, 999);
+		ss.search(SequentialArray, i, 10000-1);
 	}
 	ending = clock();
 
-	cout << "Search Time: " << (float)ending - (float)starting << " seconds" << endl;
+	cout << "Search Time: " << ((float)ending - (float)starting) / 100 << " seconds" << endl;
 
 	starting = clock();
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 10000; i++)
 	{
-		bs.search(SequentialArray, i+1, 999);
+		bs.search(SequentialArray, i + 1, 10000 - 1);
 	}
 	ending = clock();
 
 
-	cout << "Binary Search Time: " << (float)ending - (float)starting << " seconds" << endl;
+	cout << "Binary Search Time: " << ((float)ending - (float)starting)/100 << " seconds" << endl;
 	_getch();
 
-	cout << "Words From Dictionary: " << endl;
+	cout << "\nWords From Dictionary: " << endl;
 
 	ifstream Reader;
 	string wordToCheck = "";
@@ -75,7 +75,7 @@ int main()
 	Reader.close();
 
 	_getch();
-	cout << "Tree:" << endl;
+	cout << "\nTree:" << endl;
 
 	PrintAVL(WordTree.Root, 10);
 	_getch();
@@ -90,11 +90,12 @@ int main()
 		{
 			for (int x = 0; x < wordToCheck.size(); x++)
 			{
-				if (wordToCheck[x] == '.')
+				//Replaces none letters
+				if (wordToCheck[x] == '"')
 				{
 					wordToCheck.erase(x, 1);
 				}
-				if (wordToCheck[x] == '"')
+				if (wordToCheck[x] == '.')
 				{
 					wordToCheck.erase(x, 1);
 				}

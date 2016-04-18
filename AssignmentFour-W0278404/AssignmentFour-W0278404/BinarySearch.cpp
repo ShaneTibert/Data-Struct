@@ -10,24 +10,24 @@ BinarySearch::~BinarySearch(){}
 int BinarySearch::search(int unsortedList[], int searched, int length){
 
 
-	int half = length - 1 / 2;
+	int half = (length/2);
 	int last = 0;
 
 	for (int x = 0; x < length; x++)
 	{
-		if (searched == unsortedList[half])
+		if (searched == half - 1)
 		{
 			return x;
 		}
 
-		if (searched < unsortedList[half])
+		if (searched < half-1)
 		{
 			last = half;
-			half = half / 2;
+			half = (half / 2);
 		}
 		else
 		{
-			half = half + ((length - half) / 2);
+			half = (half + 1);
 		}
 
 	}
