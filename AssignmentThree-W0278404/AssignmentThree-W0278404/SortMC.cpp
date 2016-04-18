@@ -283,14 +283,17 @@ void SortMC::externalMergeBase() {
 			secondFile.close();
 			first = true;
 			line = false;
+			int NumberOne = 0;
+			int NumberTwo = 0;
+			
 			index = 0;
 			secondFirstFile.open("secondFirstFile.txt");
 			secondSecondFile.open("secondSecondFile.txt");
 			firstRead.open("firstFile.txt");
 			secondRead.open("secondFile.txt");
 			if (secondRead.is_open()&&firstRead.is_open()) {
-				while (!firstRead.eof()&& !secondRead.eof()) {
-
+				while (!firstRead.eof() && !secondRead.eof()) {
+					//Read 1 record from each file of part 1. Compare, write smallest to file 3
 					if (!first) {
 						i = secondRead.get();
 					}
@@ -304,40 +307,256 @@ void SortMC::externalMergeBase() {
 					}
 					else {
 						if (i == ',') {
-							unsorted[0][index] = atoi(tempC.c_str());
+							if (index = 0 || NumberOne > NumberTwo) {
+								unsorted[0][0] = atoi(tempC.c_str());
+
+							}
+							else unsorted[1][1] = atoi(tempC.c_str());
 							tempC = "";
 						}
 						else if (i == ';') {
 							unsorted[1][index] = atoi(tempC.c_str());
-							tempC = "";
 							first = !first;
+							if (index = 0 || NumberOne > NumberTwo) {
+								unsorted[1][0] = atoi(tempC.c_str());
+
+							}
+							else unsorted[1][1] = atoi(tempC.c_str());
+							tempC = "";
 							index++;
+							if (index < 3000) {
+								if (index != 0 && unsorted[1][0] > unsorted[1][1]) {
+									secondFirstFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+								}
+								else {
+									secondFirstFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+								}
+							} 
+							else {
+								if (index != 0 && unsorted[1][0] > unsorted[1][1]) {
+									secondSecondFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+								}
+								else {
+									secondSecondFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+								}
+							}
 						}
 					}
+					//Read next record from buffer that had contained the smallest key previously. 
 
-					if (index == 1000 - 1) {
-						externalMergeSort(unsorted, 0, 1000);
-						if (secondfirst) {
-							for (int i = 0; i < 1000 - 1; i++) {
-								secondSecondFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
-							}
-							secondfirst = false;
+					//Compare, write smallest to file 3.
+
+					//Repeat until one block of 1000 finished, then ensure other block remains in sync by 
+
+					//writing remaining records of that block to file 3
+
+					if (index == 3000 - 1) {
+						
+						if (NumberOne > NumberTwo) {
+							secondFirstFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+
 						}
-						else {
-							for (int i = 0; i < 1000 - 1; i++) {
-								secondFirstFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
-							}
-							secondfirst = true;
+						else secondFirstFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+
+					}
+					if (index == 5000 - 1) {
+
+						if (NumberOne > NumberTwo) {
+							secondSecondFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+
 						}
+						else secondSecondFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+
 						index = 0;
 					}
 
 				}
 			}
-			secondRead.close();
-			firstRead.close();
-			secondSecondFile.close();
-			secondFirstFile.close();
+			first = true;
+			line = false;
+
+			index = 0;
+			firstFile.open("firstFile.txt");
+			secondFile.open("secondFile.txt");
+			secondFirstRead.open("secondFirstFile.txt");
+			secondSecondRead.open("secondSecondFile.txt");
+			if (secondRead.is_open() && firstRead.is_open()) {
+				while (!firstRead.eof() && !secondRead.eof()) {
+					//Read 1 record from each file of part 1. Compare, write smallest to file 3
+					if (index == 0 || index == 3000 || NumberOne > NumberTwo) {
+						i = secondSecondRead.get();
+					}
+					else {
+						i = secondFirstRead.get();
+					}
+
+
+					if (i != ';'&&i != ',') {
+						tempC += i;
+					}
+					else {
+						if (i == ',') {
+							if (index != 0 || index != 3000 || NumberOne < NumberTwo) {
+								unsorted[0][0] = atoi(tempC.c_str());
+
+							}
+							else unsorted[1][1] = atoi(tempC.c_str());
+							tempC = "";
+						}
+						else if (i == ';') {
+							unsorted[1][index] = atoi(tempC.c_str());
+							first = !first;
+							if (index != 0 || index != 3000 || NumberOne < NumberTwo) {
+								unsorted[1][0] = atoi(tempC.c_str());
+
+							}
+							else unsorted[1][1] = atoi(tempC.c_str());
+							tempC = "";
+							index++;
+							if (index < 3000 && index != 0) {
+								if (index != 0 && unsorted[1][0] > unsorted[1][1]) {
+									firstFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+								}
+								else {
+									firstFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+								}
+							}
+							else if(index != 0 && index != 3000) {
+								if (index != 0 && unsorted[1][0] > unsorted[1][1]) {
+									secondFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+								}
+								else {
+									secondFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+								}
+							}
+						}
+					}
+					//Read next record from buffer that had contained the smallest key previously. 
+
+					//Compare, write smallest to file 3.
+
+					//Repeat until one block of 1000 finished, then ensure other block remains in sync by 
+
+					//writing remaining records of that block to file 3
+
+					if (index == 3000 - 1) {
+
+						if (NumberOne > NumberTwo) {
+							secondFirstFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+
+						}
+						else secondFirstFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+
+						index = 0;
+					}
+					if (index == 5000 - 1) {
+
+						if (NumberOne > NumberTwo) {
+							secondSecondFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+
+						}
+						else secondSecondFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+
+						index = 0;
+					}
+
+				}
+			}
+			firstFile.close();
+			secondFile.close();
+			secondFirstRead.close();
+			secondSecondRead.close();
+
+			first = true;
+			line = false;
+
+
+			index = 0;
+			secondFirstFile.open("secondFirstFile.txt");
+			secondSecondFile.open("secondSecondFile.txt");
+			firstRead.open("firstFile.txt");
+			secondRead.open("secondFile.txt");
+			if (secondRead.is_open() && firstRead.is_open()) {
+				while (!firstRead.eof() && !secondRead.eof()) {
+					//Read 1 record from each file of part 1. Compare, write smallest to file 3
+					if (!first) {
+						i = secondRead.get();
+					}
+					else {
+						i = firstRead.get();
+					}
+
+
+					if (i != ';'&&i != ',') {
+						tempC += i;
+					}
+					else {
+						if (i == ',') {
+							if (index = 0 || NumberOne > NumberTwo) {
+								unsorted[0][0] = atoi(tempC.c_str());
+
+							}
+							else unsorted[1][1] = atoi(tempC.c_str());
+							tempC = "";
+						}
+						else if (i == ';') {
+							unsorted[1][index] = atoi(tempC.c_str());
+							first = !first;
+							if (index = 0 || NumberOne > NumberTwo) {
+								unsorted[1][0] = atoi(tempC.c_str());
+
+							}
+							else unsorted[1][1] = atoi(tempC.c_str());
+							tempC = "";
+							index++;
+							if (index < 3000) {
+								if (index != 0 && unsorted[1][0] > unsorted[1][1]) {
+									secondFirstFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+								}
+								else {
+									secondFirstFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+								}
+							}
+							else {
+								if (index != 0 && unsorted[1][0] > unsorted[1][1]) {
+									secondSecondFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+								}
+								else {
+									secondSecondFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+								}
+							}
+						}
+					}
+					//Read next record from buffer that had contained the smallest key previously. 
+
+					//Compare, write smallest to file 3.
+
+					//Repeat until one block of 1000 finished, then ensure other block remains in sync by 
+
+					//writing remaining records of that block to file 3
+
+					if (index == 3000 - 1) {
+
+						if (NumberOne > NumberTwo) {
+							secondFirstFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+
+						}
+						else secondFirstFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+
+					}
+					if (index == 5000 - 1) {
+
+						if (NumberOne > NumberTwo) {
+							secondSecondFile << unsorted[0][1] << ',' << unsorted[1][1] << ';';
+
+						}
+						else secondSecondFile << unsorted[0][0] << ',' << unsorted[1][0] << ';';
+
+						index = 0;
+					}
+
+				}
+			}
 
 			first = true;
 			secondFirstRead.open("secondFirstFile.txt");
@@ -371,7 +590,7 @@ void SortMC::externalMergeBase() {
 					}
 
 					if (index == 1000 - 1) {
-						externalMergeSort(unsorted, 0, 1000);
+						externalMergeSort(unsorted, 0, 500, 1000);
 							for (int i = 0; i < 1000 - 1; i++) {
 								sortedFile << unsorted[0][i] << ',' << unsorted[1][i] << ';';
 							}
